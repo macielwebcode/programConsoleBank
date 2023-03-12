@@ -12,6 +12,7 @@ namespace mmbBank.Contas
     {
         public static int TotalDeContasCriadas{ get; private set; }
 
+        public static float TaxaOperacao { get; private set; }
         
         private int numero_agencia;
         public int NumeroAgenca
@@ -31,12 +32,26 @@ namespace mmbBank.Contas
 
         public PessoaTitular Titular { get; set; }
 
-        private double saldo = 0;
+        private double saldo = 100;
 
         public ContaCorrente(int numero_agencia, string conta, PessoaTitular cliente)
         {
             this.NumeroAgenca = numero_agencia;
             this.Conta = conta;
+            if(numero_agencia <= 0)
+            {
+                throw new ArgumentException("Número de agencia menor ou igual a zero",  nameof(numero_agencia));
+            }
+            //try
+            //{
+            //    TaxaOperacao = 30 / TotalDeContasCriadas;
+            //}
+            //catch (DivideByZeroException)
+            //{
+
+            //    Console.WriteLine("Divisão por zero nao existe");
+            //}
+
             Titular = cliente;
             TotalDeContasCriadas++;
         }
@@ -70,7 +85,11 @@ namespace mmbBank.Contas
                 saldo -= valor;
                 return true;
             }
-            return false;
+            else
+            {
+                throw new SaldoInsuficienteException("Saldo Insuficiente para a Operação de Sacar");
+            }
+            
 
 
         }
@@ -78,7 +97,7 @@ namespace mmbBank.Contas
         {
             if (saldo < valor)
             {
-                return false;
+                throw new ArgumentException("Valor inválido para a transferência.", nameof(valor));
             }
             if (valor < 0)
             {

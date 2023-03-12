@@ -1,4 +1,5 @@
-﻿using mmbBank.Contas;
+﻿using mmbBank;
+using mmbBank.Contas;
 using mmbBank.Funcionarios;
 using mmbBank.ParceriaComercial;
 using mmbBank.Pessoa;
@@ -83,7 +84,7 @@ using mmbBank.Util;
 #endregion funcionario salario
 
 //CalcularBonificacao();
-UsarSistema();
+//UsarSistema();
 
 void CalcularBonificacao()
 {
@@ -128,3 +129,59 @@ void UsarSistema()
     parceiro.Senha = "1234";
     sistema.Logar(parceiro, "1234");
 }
+
+#region para testar exceções
+
+//PessoaTitular cliente = new PessoaTitular();
+//cliente.pessoaNome = "teste";
+//cliente.pessoaCpf = "00000";
+//cliente.pessoaProfissao = "analista";
+
+//try
+//{
+//    //para testar o catch do numero da agencia, mudar o primeiro param da instancia do obj para zero 0
+
+//    ContaCorrente conta1 = new ContaCorrente(0, "xx01", cliente);
+//    //conta1.Sacar(50);
+//    //conta1.Sacar(150);
+//    //Console.WriteLine(conta1.GetSaldo());
+//}
+//catch (ArgumentException ex)
+//{
+//    Console.WriteLine("O parametro com erro é: " + ex.ParamName);
+//    Console.WriteLine("nao é possíveo criar uma conta com numero de agencia menor ou igual a zero");
+//    Console.WriteLine(ex.StackTrace);
+//    Console.WriteLine(ex.Message);
+//}
+//catch (SaldoInsuficienteException ex)
+//{
+//    Console.WriteLine("Operação negada! Saldo Insuficiente");
+//    Console.WriteLine(ex.Message);
+//}
+
+
+
+#endregion para testar exceções
+
+#region testar ler arquivo com exceções
+
+LeitorDeArquivo lerarquivo = new LeitorDeArquivo("contas.txt");
+
+try
+{
+   
+    lerarquivo.LerProximaLinha();
+    lerarquivo.LerProximaLinha();
+    
+}
+catch (IOException)
+{
+
+    Console.WriteLine("Leitura de Arquivo interrompida ou corrompida");
+}
+finally
+{
+    lerarquivo.Dispose();
+}
+
+#endregion testar ler arquivo

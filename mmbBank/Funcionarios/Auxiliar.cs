@@ -10,7 +10,7 @@ namespace mmbBank.Funcionarios
     {
         public Auxiliar(string cpf) : base(cpf, 2000)
         {
-
+           
         }
 
         public override double GetBonificacao()
